@@ -1,0 +1,14 @@
+version: '2'
+services:
+    eticket-app:
+        image: eticket
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://eticket-postgresql:5432/eticket
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    eticket-postgresql:
+        extends:
+            file: postgresql.yml
+            service: eticket-postgresql
