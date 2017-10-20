@@ -1,0 +1,48 @@
+
+entity Ticket {
+	requester String
+    code String
+    description String
+    customerCode String
+    customerEmail String
+    status String
+}
+
+entity TicketHistory {
+    startDate ZonedDateTime
+    status String
+    isActive Boolean
+}
+
+entity Problem {
+    title String
+    description String
+}
+
+entity Severity {
+    title String
+    description String
+}
+
+relationship OneToOne {
+	Ticket{severity} to Severity
+}
+
+relationship OneToOne {
+	Ticket{problem} to Problem
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Ticket{ticketHistory} to TicketHistory{ticket}
+}
+
+// Set pagination options
+paginate Ticket with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with eticket
